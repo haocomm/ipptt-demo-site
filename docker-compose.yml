@@ -142,7 +142,8 @@ services:
     - demo-haocomm-web  
   volumes:
     - ./traccar/logs:/opt/traccar/logs:rw
-    - ./traccar/:/opt/traccar/conf/traccar.xml:ro	
+    - ./traccar/traccar.xml:/opt/traccar/conf/traccar.xml:ro	
+    - ./traccar/traccar-db:/opt/traccar/data/database
 
 volumes:
  murmurdb:
