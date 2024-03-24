@@ -1,7 +1,7 @@
 
 # cloudflared-tunnel-webfront
 ```
-git clone https://gitlab.com/haocomm/demo-site.git
+git clone https://github.com/haocomm/ipptt-demo-site.git
 
 cd cloudflare
 
