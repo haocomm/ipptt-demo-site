@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+   cloudflared-web-front:
+    image: msnelling/cloudflared
+    container_name: cloudflared-web-front
+    volumes:
+      - ./config:/etc/cloudflared
+    command: /usr/local/bin/cloudflared tunnel --no-autoupdate run
+    restart: always
+    networks:
+      - demo-haocomm-web
+
+networks:
+    demo-haocomm-web:
+        name: demo-haocomm-web

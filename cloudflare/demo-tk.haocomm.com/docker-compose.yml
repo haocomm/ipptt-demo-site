@@ -1,0 +1,31 @@
+version: '3.7'
+services:
+  
+## webfront
+ web-frontend:
+    image: haocomcloud/ipptt-demo:webfront
+    container_name: web-frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    networks:
+      - demo-haocomm-web
+
+ nginx-webfront:
+    build:
+      context: nginx
+      dockerfile: Dockerfile
+    container_name: nginx-webfront
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - web-frontend
+    networks:
+      - demo-haocomm-web
+
+networks:
+    demo-haocomm-web:
+           external: true
+           name: demo-haocomm-web

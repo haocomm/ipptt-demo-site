@@ -1,0 +1,154 @@
+version: '3.8'
+services: 
+
+## autoprovision-srv
+ web-autoprovision-srv:
+  image: haocomcloud/ipptt-demo:autoprovision-srv
+  container_name: web-autoprovision-srv
+  restart: always 
+  ports:
+    - 81:80
+  networks:
+      - demo-haocomm-web
+  volumes:
+    - ./autoprovision-srv/www:/var/www/html
+
+# mumsi-srv
+ mumsi:
+    image: haocomcloud/ipptt-demo:mumsi
+    container_name: mumsi
+    restart: always 
+    ports: 
+      - "5060:5060"
+    networks:
+      - demo-haocomm-web
+    volumes:
+      - ./mumsi/config:/config
+
+
+## mysql-db
+ db:
+    image: mysql:5.7
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3306:3306"
+    restart: always 
+    networks:
+      - demo-haocomm-web
+    volumes:
+      - ./dbdata:/var/lib/mysql
+      - ./init:/docker-entrypoint-initdb.d
+
+ phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    depends_on:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 8086:80
+    networks:
+      - demo-haocomm-web
+
+## murmur-rest and mumble-server
+ nginx-proxy:
+    image: jwilder/nginx-proxy
+    restart: always
+    ports:
+      - "80:80"
+    networks:
+      - demo-haocomm-web
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+ murmur-rest:
+    image: haocomcloud/ipptt-demo:murmur-rest-srv-v1
+    restart: always
+    environment:
+      APP_HOST: ${APP_HOST}
+      APP_PORT: ${APP_PORT}
+      APP_DEBUG: ${APP_DEBUG}
+      APP_SECRET_KEY: ${APP_SECRET_KEY}
+      MURMUR_ICE_HOST: ${MURMUR_ICE_HOST}
+      MURMUR_ICE_PORT: ${MURMUR_ICE_PORT}
+      ENABLE_AUTH: ${ENABLE_AUTH}
+      USERS: ${USERS}
+      VIRTUAL_HOST: ${VIRTUAL_HOST}
+    ports:
+      - "8080:8080"
+    #   - "5000:5000"
+    networks:
+      - demo-haocomm-web
+    depends_on:
+      - murmurd
+
+ murmurd:
+    image: haocomcloud/ipptt-demo:murmur
+    restart: always
+    ports:
+      - "127.0.0.1:6502:6502"
+      - "50000-50050:50000-50050"
+      - "50000-50050:50000-50050/udp"
+    networks:
+      - demo-haocomm-web
+    volumes:
+      - ./etc/murmur.ini:/etc/murmur/murmur.ini
+      - murmurdb:/var/lib/murmur/
+
+## xmlmgmt-web 
+ xmlmgmt-web:
+    image: haocomcloud/ipptt-demo:xmlmgmt-web
+    container_name: xmlmgmt-web
+    restart: always 
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      BASIC_AUTH_PASS: ${BASIC_AUTH_PASS}
+    ports: 
+      - "9000:9000"
+    networks:
+      - demo-haocomm-web
+    volumes:
+      - ./configuration:/usr/app/configuration
+
+## traccar_server
+ traccar-srv:
+  image: haocomcloud/ipptt-demo:traccar-srv
+  container_name: traccar-srv
+  hostname: traccar
+  environment:
+      TRACCAR_URL: ${TRACCAR_URL}
+      TRACCAR_USERNAME: ${TRACCAR_USERNAME}
+      TRACCAR_PASSWORD: ${TRACCAR_PASSWORD}
+  ports:
+    - 8082:8082
+    - 5000-5059:5000-5059
+    - 5061-5150:5061-5150
+    - 5000-5059:5000-5059/udp
+    - 5061-5150:5061-5150/udp
+#     - 5000-5150:5000-5150
+#     - 5000-5150:5000-5150/udp
+
+  restart: always
+  networks:
+    - demo-haocomm-web  
+  volumes:
+    - ./traccar/logs:/opt/traccar/logs:rw
+    - ./traccar/:/opt/traccar/conf/traccar.xml:ro	
+
+volumes:
+ murmurdb:
+
+networks:
+    demo-haocomm-web:
+           external: true
+           name: demo-haocomm-web
+
