@@ -17,7 +17,7 @@ services:
       dockerfile: Dockerfile
     container_name: nginx-webfront
     restart: always
-    ports:
+    expose:
       - "80:80"
       - "443:443"
     depends_on:
