@@ -1,5 +1,5 @@
 # IPPTT By Haocomm
-![image](https://imgur.com/a/uLjIMLn)
+![image](https://i.imgur.com/fU1z9wS.png)
 
   Web Management Dashboard สำหรับทำหน้าที่จัดการ Dashboard ของ mumble / Traccar 
 ซึ่งก็จะนำบาง function ของ mumble และ Traccar มาใช้งาน เพื่อให้ง่ายกับผู้ดูแลระบบ  ตอนนี้กำลังอยู่ในช่วงพัฒนาอยู่ครับ
@@ -21,6 +21,7 @@
 - Login for Admin (support Oauth 2.0 SSO)=> สำหรับให้ผู้ใช้งาน System Admin ล็อกอินเข้าสู่ระบบเพื่อจัดการ Web Management Dashboard
 - Talk online  เป็น mumble web client ซึ่งสามารถ ใช้งาน mumble client ผ่าน Web browser
 
+URL DEMO: https://demo-tk.haocomm.com
 
 
 
