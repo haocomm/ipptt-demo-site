@@ -22,6 +22,7 @@
 - Talk online  เป็น mumble web client ซึ่งสามารถ ใช้งาน mumble client ผ่าน Web browser
 
 URL DEMO: https://demo-tk.haocomm.com
+BLOG : https://www.ipptt.co/ipptt-web-management-dashboard/
 
 
 
