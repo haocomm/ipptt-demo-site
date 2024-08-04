@@ -119,6 +119,34 @@ services:
     volumes:
       - ./configuration:/usr/app/configuration
 
+## mongodb
+ mongo_database:
+    image: mongo
+    restart: always 
+    ports:
+      - 27017:27017
+    networks:
+      - demo-haocomm-web
+    container_name: mongo_database
+    environment: 
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+    volumes: 
+      - my_data:/data/db 
+  
+ mongo-express:
+    image: mongo-express:latest
+    restart: always
+    ports:
+      - "8081:8081"
+    networks:
+      - demo-haocomm-web
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - ME_CONFIG_MONGODB_SERVER=mongo_database
+
+
 ## traccar_server
  traccar-srv:
   image: haocomcloud/ipptt-demo:traccar-srv
@@ -147,6 +175,7 @@ services:
 
 volumes:
  murmurdb:
+ my_data:
 
 networks:
     demo-haocomm-web:
