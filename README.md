@@ -29,7 +29,7 @@ BLOG : https://www.ipptt.co/ipptt-web-management-dashboard/
 # cloudflared-tunnel-webfront
 ```
 git clone https://github.com/haocomm/ipptt-demo-site.git
-
+cd ipptt-demo-site
 cd cloudflare
 
 docker run -v ${PWD}/config:/root/.cloudflared msnelling/cloudflared cloudflared tunnel login
@@ -71,8 +71,44 @@ cd cloudflare/demo-tk.haocomm.com
 
 docker-compose up -d
 ```
+## Edit ENV
+```
+mv env.example .env
 
+# Fill environments
+## mysql and phpmyadmin
+MYSQL_ROOT_PASSWORD= 
+MYSQL_DATABASE= 
+MYSQL_USER= 
+MYSQL_PASSWORD= 
+
+## murmur-rest and mumble-server
+APP_HOST=0.0.0.0
+APP_PORT=8080
+APP_DEBUG=True
+APP_SECRET_KEY=supersecret
+MURMUR_ICE_HOST=murmurd
+MURMUR_ICE_PORT=6502
+ENABLE_AUTH=True
+USERS=admin:password
+VIRTUAL_HOST=
+
+## mongodb
+MONGO_INITDB_ROOT_USERNAME=
+MONGO_INITDB_ROOT_PASSWORD=
+
+## xmlmgmt-web
+DATABASE_URL=
+BASIC_AUTH_PASS=
+
+## traccar
+TRACCAR_URL=
+TRACCAR_USERNAME=
+TRACCAR_PASSWORD=
+
+```
 ## Deploy IPPTT STACK
 ```
+cd ipptt-demo-site
 docker-compose up -d
 ```
