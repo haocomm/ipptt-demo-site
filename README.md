@@ -25,7 +25,11 @@ URL DEMO: https://demo-tk.haocomm.com
 BLOG : https://www.ipptt.co/ipptt-web-management-dashboard/
 
 
+## Used 2 VM
+- 1 VM for FrontEnd
+- 1 VM for Backend
 
+## 1 VM for FrontEnd
 # cloudflared-tunnel-webfront
 ```
 git clone https://github.com/haocomm/ipptt-demo-site.git
@@ -71,8 +75,15 @@ cd cloudflare/demo-tk.haocomm.com
 
 docker-compose up -d
 ```
+
+
+## 1 VM for Backend
+## Deploy IPPTT STACK
 ## Edit ENV
 ```
+git clone https://github.com/haocomm/ipptt-demo-site.git
+cd ipptt-demo-site
+
 mv env.example .env
 
 # Fill environments
@@ -107,8 +118,7 @@ TRACCAR_USERNAME=
 TRACCAR_PASSWORD=
 
 ```
-## Deploy IPPTT STACK
+
 ```
-cd ipptt-demo-site
 docker-compose up -d
 ```
