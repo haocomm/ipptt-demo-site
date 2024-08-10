@@ -173,6 +173,21 @@ services:
     - ./traccar/traccar.xml:/opt/traccar/conf/traccar.xml:ro	
     - ./traccar/traccar-db:/opt/traccar/data/database
 
+## web-management-mqtt
+ web-mgmt-mqtt:
+    image:  haocomcloud/ipptt-demo:web-mgmt-mqtt 
+    container_name: web-mgmt-mqtt
+    restart: always
+    environment:
+      INTERCOM_URL:  ${INTERCOM_URL}
+      XML_URL: ${XML_URL}
+      XML_USERNAME: ${XML_USERNAME}
+      XML_PASSWORD: ${XML_PASSWORD}
+    ports:
+      - "3002:3002"
+    networks:
+      - demo-haocomm-web  
+
 volumes:
  murmurdb:
  my_data:
