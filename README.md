@@ -122,3 +122,15 @@ TRACCAR_PASSWORD=
 ```
 docker-compose up -d
 ```
+
+## How to add superuser in mumble server
+
+```
+docker exec -it ipptt-demo-site-murmurd-1  /bin/bash
+
+murmurd -ini /etc/murmur/murmur.ini -supw <password>
+murmurd -ini /etc/murmur/murmur.ini -supw <password> <server>
+
+example.
+murmurd -ini /etc/murmur/murmur.ini -supw haocomm0875109339 mumble-demo.haocomm.com:50000
+```
