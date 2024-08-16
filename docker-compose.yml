@@ -173,6 +173,20 @@ services:
     - ./traccar/traccar.xml:/opt/traccar/conf/traccar.xml:ro	
     - ./traccar/traccar-db:/opt/traccar/data/database
 
+# mqtt5 eclipse-mosquitto
+ mqtt5:
+    image: eclipse-mosquitto
+    container_name: mqtt5
+    ports:
+      - "1883:1883" #default mqtt port
+      - "9001:9001" #default mqtt port for websockets
+    volumes:
+      - ./mqtt_config:/mosquitto/config:rw
+      - ./mqtt_data:/mosquitto/data:rw
+      - ./mqtt_log:/mosquitto/log:rw
+    restart: always
+
+
 ## web-management-mqtt
 #  web-mgmt-mqtt:
 #     image:  haocomcloud/ipptt-demo:web-mgmt-mqtt 
@@ -191,6 +205,9 @@ services:
 volumes:
  murmurdb:
  my_data:
+ mqtt_config:
+ mqtt_data:
+ mqtt_log:
 
 networks:
     demo-haocomm-web:

@@ -134,3 +134,29 @@ murmurd -ini /etc/murmur/murmur.ini -supw <password> <server>
 example.
 murmurd -ini /etc/murmur/murmur.ini -supw haocomm0875109339 mumble-demo.haocomm.com:50000
 ```
+
+## How to Create a user/password in the pwfile
+pwfile
+
+```
+
+# login interactively into the mqtt container
+sudo docker exec -it <container-id> sh
+
+# Create new password file and add user and it will prompt for password
+mosquitto_passwd -c /mosquitto/config/pwfile user1
+
+# Add additional users (remove the -c option) and it will prompt for password
+mosquitto_passwd /mosquitto/config/pwfile user2
+
+# delete user command format
+mosquitto_passwd -D /mosquitto/config/pwfile <user-name-to-delete>
+
+# type 'exit' to exit out of docker container prompt
+
+```
+restart container mqtt5
+```
+sudo docker restart <container-id>
+
+```
