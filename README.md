@@ -135,6 +135,29 @@ example.
 murmurd -ini /etc/murmur/murmur.ini -supw haocomm0875109339 mumble-demo.haocomm.com:50000
 ```
 
+## How to create server instance 
+```
+murmur_custom-11.ini 
+***
+port=50011
+serverpassword=1234567890
+welcometext="<br />Welcome to My Custom Mumble Server!"
+***
+
+docker cp murmur_custom-11.ini  apiippttcom-murmurd-1:/home/murmur
+
+docker exec -it apiippttcom-murmurd-1 /bin/bash
+
+run background
+=====
+murmurd -ini murmur_custom-11.ini 
+
+
+output debug
+=====
+murmurd -v -fg  -ini murmur_custom-11.ini
+```
+
 ## How to Create a user/password in the pwfile
 pwfile
 
