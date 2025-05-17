@@ -170,7 +170,7 @@ services:
     - demo-haocomm-web  
   volumes:
     - ./traccar/logs:/opt/traccar/logs:rw
-    - ./traccar/traccar.xml:/opt/traccar/conf/traccar.xml:ro	
+    - ./traccar/traccar.xml:/opt/traccar/conf/traccar.xml:ro
     - ./traccar/traccar-db:/opt/traccar/data/database
 
 # mqtt5 eclipse-mosquitto
@@ -211,6 +211,6 @@ volumes:
 
 networks:
     demo-haocomm-web:
-           external: true
-           name: demo-haocomm-web
+#           external: true
+#           name: demo-haocomm-web
 
